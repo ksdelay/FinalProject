@@ -1,0 +1,8 @@
+DROP TABLE IF EXISTS `tblUsers`;
+CREATE TABLE tblUsers
+(pmkTime INT (10) NOT NULL,
+pmkEmail VARCHAR(20) NOT NULL,
+fldDate VARCHAR(20),
+fldName  VARCHAR(25)
+)
+

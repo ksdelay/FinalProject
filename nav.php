@@ -15,6 +15,11 @@
         } else {
             print '<li><a href="tables.php">Display Tables</a></li>';
         }
+         if ($path_parts['filename'] == "addUser") {
+            print '<li class="activePage">User Registration</li>';
+        } else {
+            print '<li><a href="addUser.php">User Registration</a></li>';
+        }
         
        
         ?>

@@ -1,0 +1,9 @@
+DROP TABLE IF EXISTS `tblTrails`;
+CREATE TABLE tblTrails
+(pmkTrailId INT NOT NULL AUTO_INCREMENT PRIMARY KEY ,
+fldTrailName VARCHAR(25) NOT NULL,
+fnkMountainId int(1) NOT NULL,
+fldLength INT(10),
+fldDifficulty int(1) NOT NULL
+)
+

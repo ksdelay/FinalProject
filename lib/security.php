@@ -20,6 +20,10 @@ function securityCheck($path_parts, $yourURL, $form = false) {
     $whiteListPages = array();
     $whiteListPages[] = "tables.php";
     $whiteListPages[] = "index.php";
+    $whiteListPages[] = "inserting.php";
+    $whiteListPages[] = "addUser.php";
+
+
     //ssh w3.uvm.edu -l username
     //add all the folders to this array
     $whiteListFolders = array();

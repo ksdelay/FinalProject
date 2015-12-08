@@ -91,11 +91,13 @@ if (isset($_POST["btnSubmit"])) {
 //
 // SECTION: 2a Security
 //
-   if (!securityCheck(false)) {
-        $msg = "<p>Sorry you cannot access this page. ";
-       $msg.= "Security breach detected and reported</p>";
+    if (!(securityCheck($path_parts, $yourURL, true))) {
+       $msg = "<p>Sorry you cannot access this page. ";
+      $msg.= "Security breach detected and reported</p>";
        die($msg);
-    }
+   }
+    if (debug)
+        print "<p>hello</p>";
 
 //@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 //
@@ -103,6 +105,8 @@ if (isset($_POST["btnSubmit"])) {
 // remove any potential JavaScript or html code from users input on the
 // form. Note it is best to follow the same order as declared in section 1c.
     $email = filter_var($_POST["txtEmail"], FILTER_SANITIZE_EMAIL);
+    if(debug)
+        print"<p> yoooo 2b</p>";
 
 //@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 //
@@ -115,7 +119,8 @@ if (isset($_POST["btnSubmit"])) {
 // will be in the order they appear. errorMsg will be displayed on the form
 // see section 3b. The error flag ($emailERROR) will be used in section 3c.
 
-
+    if(debug)
+        print "<p> costa rica</p>";
     if ($email == "") {
         $errorMsg[] = "Please enter your email address";
         $emailERROR = true;
@@ -123,6 +128,8 @@ if (isset($_POST["btnSubmit"])) {
         $errorMsg[] = "Your email address appears to be incorrect.";
         $emailERROR = true;
     }
+    if(debug)
+        print"<p>poopy</p>";
 
 //@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 //
@@ -144,7 +151,7 @@ if (isset($_POST["btnSubmit"])) {
         try {
             $thisDatabase->db->beginTransaction();
             $query = 'INSERT INTO tblUsers SET pmkTime=?, pmkEmail = ?';
-            $data = array($email, "hi");
+            $data = array($email, );
             if ($debug) {
                 print "<p>sql " . $query;
                 print"<p><pre>";
@@ -216,7 +223,9 @@ if (isset($_POST["btnSubmit"])) {
             $mailed = sendMail($to, $cc, $bcc, $from, $subject, $messageA . $messageB . $messageC);
         } //data entered  
     } // end form is valid
-} // ends if form was submitted.
+}
+if(debug)
+print"<p> sa</p>";// ends if form was submitted.
 //#############################################################################
 //
 // SECTION 3 Display Form

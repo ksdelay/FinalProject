@@ -60,6 +60,7 @@ $yourURL = $domain . $phpSelf;
 // Initialize variables one for each form element
 // in the order they appear on the form
 $email = "youremail@uvm.edu";
+$fullName = "";
 
 //%^%^%^%^%^%^%^%^%^%^%^%^%^%^%^%^%^%^%
 //
@@ -68,6 +69,7 @@ $email = "youremail@uvm.edu";
 // Initialize Error Flags one for each form element we validate
 // in the order they appear in section 1c.
 $emailERROR = false;
+$fullNameERROR = false;
 
 //%^%^%^%^%^%^%^%^%^%^%^%^%^%^%^%^%^%^%
 //
@@ -105,6 +107,7 @@ if (isset($_POST["btnSubmit"])) {
 // remove any potential JavaScript or html code from users input on the
 // form. Note it is best to follow the same order as declared in section 1c.
     $email = filter_var($_POST["txtEmail"], FILTER_SANITIZE_EMAIL);
+    $fullName = filter_var($_POST["txtFullName"]);
     if(debug)
         print"<p> yoooo 2b</p>";
 
@@ -124,12 +127,16 @@ if (isset($_POST["btnSubmit"])) {
     if ($email == "") {
         $errorMsg[] = "Please enter your email address";
         $emailERROR = true;
-    } elseif (!verifyEmail($email)) {
-        $errorMsg[] = "Your email address appears to be incorrect.";
-        $emailERROR = true;
-    }
-    if(debug)
+    } //elseif (!verifyEmail($email)) {
+       // $errorMsg[] = "Your email address appears to be incorrect.";
+       // $emailERROR = true;
+    //}
+    elseif(debug)
         print"<p>poopy</p>";
+    elseif($fullName ==""){
+        $errorMsg[] = "Please enter your full name";
+        $fullNameERROR = true;
+    }
 
 //@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 //
@@ -149,23 +156,32 @@ if (isset($_POST["btnSubmit"])) {
         $primaryKey = "";
         $dataEntered = false;
         try {
-            $thisDatabase->db->beginTransaction();
-            $query = 'INSERT INTO tblUsers SET pmkTime=?, pmkEmail = ?';
-            $data = array($email, );
+            if(debug)
+                print"<p>we made it</p>";
+            //$thisDatabase->db->beginTransaction();
+            if(debug)
+                print"<p>LO</p>";
+            $query = 'INSERT INTO tblUsers SET pmkTime=?, pmkEmail = ?, fldName=?'; ';//, fldName =?';
+            //$time = new DateTime();
+            //$date = $time->format('U = Y-m H:i:s')."/n";
+            $time = new DateTime();;
+            if(debug)
+                print"<p>". $query ."</p>";
+            $data = array($time->getTimestamp(),$email,$fullName );
             if ($debug) {
                 print "<p>sql " . $query;
                 print"<p><pre>";
                 print_r($data);
                 print"</pre></p>";
             }
-            $results = $thisDatabase->insert($query, $data);
+            $results = $thisDatabaseWriter->insert($query, $data);
 
            // $primaryKey = $thisDatabase->lastInsert();
             //if ($debug)
             //    print "<p>pmk= " . $primaryKey;
 
 // all sql statements are done so lets commit to our changes
-            $dataEntered = $thisDatabase->db->commit();
+           // $dataEntered = $thisDatabase->db->commit();
             $dataEntered = true;
             if ($debug)
                 print "<p>transaction complete ";
@@ -182,13 +198,14 @@ if (isset($_POST["btnSubmit"])) {
             //#################################################################
             // create a key value for confirmation
 
-            $query = "SELECT fldDateJoined FROM tblRegister WHERE pmkRegisterId=" . $primaryKey;
-            $results = $thisDatabase->select($query);
+            $query = "SELECT fldName FROM tblUsers WHERE pmkTime = ".$time->getTimestamp()."pmkEmail =". $email;
+            $results = $thisDatabaseReader->select($query);
 
-            $dateSubmitted = $results[0]["fldDateJoined"];
-
-            $key1 = sha1($dateSubmitted);
-            $key2 = $primaryKey;
+            $name = $results[0]["fldName"];
+            if(debug)
+                print "<p> eroiaj</p>";
+            $key1 = sha1($name);
+            $key2 = $email;
 
             if ($debug)
                 print "<p>key 1: " . $key1;
@@ -301,12 +318,19 @@ print"<p> sa</p>";// ends if form was submitted.
                         <label for="txtEmail" class="required">Email
                             <input type="text" id="txtEmail" name="txtEmail"
                                    value="<?php print $email; ?>"
-                                   tabindex="120" maxlength="45" placeholder="Enter a valid email address"
+                                   tabindex="10" maxlength="45" placeholder="Enter a valid email address"
                                    <?php if ($emailERROR) print 'class="mistake"'; ?>
                                    onfocus="this.select()"
                                    >
                         </label>
-                    </fieldset> <!-- ends contact -->
+                        <label for="txtFullName" class="required"> Full Name
+                            <input type="text" id="txtFullName" name ="txtFullName"
+                                   value="<?php print $fullName;?>"
+                                   tabindex="20" maxlength="45"placeholder=""
+                                   <?php if($fullNameERROR) print 'class="mistake"';?>
+                                   onfocus="this.select()"
+                                >
+                                   </fieldset> <!-- ends contact -->
                 </fieldset> <!-- ends wrapper Two -->
                 <fieldset class="buttons">
                     <legend></legend>

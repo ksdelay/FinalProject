@@ -20,6 +20,11 @@
         } else {
             print '<li><a href="addUser.php">User Registration</a></li>';
         }
+         if ($path_parts['filename'] == "mountainReview") {
+            print '<li class="activePage">Review a mountain</li>';
+        } else {
+            print '<li><a href="mountainReview.php">Review a mountain</a></li>';
+        }
         
        
         ?>

@@ -84,7 +84,7 @@ require_once('lib/custom-functions.php');
         // I have an array of check boxes so i would have to sanatize that, here
         // i skip it.
 
-        $spaceAllowedPages = array("addUser.php");
+        $spaceAllowedPages = array("addUser.php","mountainReview.php");;
 
         if (!empty($_GET)) {
             $_GET = filter_input_array(INPUT_GET, FILTER_SANITIZE_STRING);

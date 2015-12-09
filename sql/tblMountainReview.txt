@@ -2,7 +2,6 @@ DROP TABLE IF EXISTS `tblUserMountainReview`;
 CREATE TABLE tblUserMountainReview
 (
 fnkMountainId INT(1) NOT NULL,
-fnkTime int(20),
 fnkUserEmail VARCHAR(20),
 fldLiftWait INT(10),
 fldDifficulty int(1) NOT NULL, 

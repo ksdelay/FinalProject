@@ -133,7 +133,7 @@ if (isset($_POST["btnSubmit"])) {
     //}
     elseif(debug)
         print"<p>poopy</p>";
-    elseif($fullName ==""){
+    if($fullName ==""){
         $errorMsg[] = "Please enter your full name";
         $fullNameERROR = true;
     }
@@ -159,9 +159,7 @@ if (isset($_POST["btnSubmit"])) {
             if(debug)
                 print"<p>we made it</p>";
             //$thisDatabase->db->beginTransaction();
-            if(debug)
-                print"<p>LO</p>";
-            $query = 'INSERT INTO tblUsers SET pmkTime=?, pmkEmail = ?, fldName=?'; ';//, fldName =?';
+            $query = 'INSERT INTO tblUsers SET pmkTime=?, pmkEmail = ?, fldName=?'; 
             //$time = new DateTime();
             //$date = $time->format('U = Y-m H:i:s')."/n";
             $time = new DateTime();;
@@ -220,10 +218,7 @@ if (isset($_POST["btnSubmit"])) {
 
             $messageA = '<h2>Thank you for registering.</h2>';
 
-            $messageB = "<p>Click this link to confirm your registration: ";
-            $messageB .= '<a href="' . $domain . $path_parts["dirname"] . '/confirmation.php?q=' . $key1 . '&amp;w=' . $key2 . '">Confirm Registration</a></p>';
-            $messageB .= "<p>or copy and paste this url into a web browser: ";
-            $messageB .= $domain . $path_parts["dirname"] . '/confirmation.php?q=' . $key1 . '&amp;w=' . $key2 . "</p>";
+            $messageB = "<p>You can now freely review any trails or mountains you want</p>";
 
             $messageC .= "<p><b>Email Address:</b><i>   " . $email . "</i></p>";
 
@@ -234,8 +229,8 @@ if (isset($_POST["btnSubmit"])) {
             $to = $email; // the person who filled out the form
             $cc = "";
             $bcc = "";
-            $from = "WRONG site <noreply@yoursite.com>";
-            $subject = "CS 148 registration that i forgot to change text";
+            $from = "Ski Mountain Reviews <noreply@skiMountainReviews.com>";
+            $subject = "Thank you for Registering!!";
 
             $mailed = sendMail($to, $cc, $bcc, $from, $subject, $messageA . $messageB . $messageC);
         } //data entered  

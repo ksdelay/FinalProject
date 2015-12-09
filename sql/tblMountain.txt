@@ -4,5 +4,6 @@ CREATE TABLE tblMountains
 fldName VARCHAR(25) NOT NULL,
 fldPeak FLOAT(5) NOT NULL,
 fldTicketPrice  FLOAT(5) NOT NULL,
-fldTrailCount int(7)
+fldTrailCount int(7),
+fldMedia VARCHAR(25)
 )

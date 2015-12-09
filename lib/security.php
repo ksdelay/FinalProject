@@ -22,6 +22,8 @@ function securityCheck($path_parts, $yourURL, $form = false) {
     $whiteListPages[] = "index.php";
     $whiteListPages[] = "inserting.php";
     $whiteListPages[] = "addUser.php";
+    $whiteListPages[]="mountainReview.php";
+    
 
 
     //ssh w3.uvm.edu -l username
